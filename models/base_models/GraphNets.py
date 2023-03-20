@@ -120,7 +120,9 @@ class GraphNet(nn.Module):
         self.node_out_net = nn.Linear(last_node_input_size, node_output_size)
     
     def forward(self, data):
-        if not hasattr(data, 'batch'):
+#         print(hasattr(data, 'batch'))
+#         print(data.batch)
+        if not hasattr(data, 'batch') or data.batch is None:
             data = Batch.from_data_list([data])
         x, edge_index, edge_attr, batch = data.x, data.edge_index, data.edge_attr, data.batch
         batch = batch.to(x.device)
